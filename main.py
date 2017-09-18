@@ -8,17 +8,30 @@ def find_problems(username, app):
 
 		if app == 'codechef':
 			app_url = 'https://www.codechef.com/users/'
+		elif app == 'spoj':
+			app_url = 'https://www.spoj.com/users/'
 		
 		destination_url = app_url + username
 		page = urllib2.urlopen(destination_url)
 		soup = BeautifulSoup(page, 'html.parser')
 
-		for article in soup.find_all('article'):
-			for para in article:
-				if not isinstance(para, NavigableString) and para!=None and para.span!=None:
-					for problem in para.span:
-						if problem.string != ", ":
-							user_problems.append(problem.string)
+		if app == 'codechef' or app == 'cc':
+			for article in soup.find_all('article'):
+				for para in article:
+					if not isinstance(para, NavigableString) and para!=None and para.span!=None:
+						for problem in para.span:
+							if problem.string != ", ":
+								user_problems.append(problem.string)
+
+		elif app == 'spoj' or app == 'sp':
+			article = soup.find('table', attrs={'class': 'table-condensed'})
+			for row in article:
+				for data in row:
+					if not isinstance(data, NavigableString) and data!=None:
+						for problem in data:
+							for problem_code in problem:
+								if problem_code!="" and problem_code!=" " and problem_code!="\n":
+									user_problems.append(str(problem_code))
 
 		return user_problems
 	except:
@@ -44,8 +57,10 @@ def download_csv(unsolved_problems):
 
 def print_diff(unsolved_problems, app):
 	app_url = ''
-	if app == 'codechef':
+	if app == 'codechef' or app == 'cc':
 		app_url = 'https://www.codechef.com/problems/'
+	elif app == 'spoj' or app == 'sp':
+		app_url = 'https://www.spoj.com/users/'
 
 	for problem in range(0, len(unsolved_problems)):
 		print problem+1, unsolved_problems[problem], app_url + unsolved_problems[problem]
@@ -64,9 +79,9 @@ def stalk_competitor(argv):
 			print 'usage: python main.py -u user_handle -c competitor_handle'
 			sys.exit()
 		elif opt in ("-a", "--app"):
-			app = arg
+			app = arg.lower()
 		elif opt in ("-u", "--username"):
-			username = arg
+			username = arg.lower()
 		elif opt in ("-c", "--competitor"):
 			competitors = arg.split(",")
 
