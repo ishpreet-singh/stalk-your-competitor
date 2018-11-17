@@ -17,7 +17,8 @@ def find_problems(username, app):
 			app_url = 'http://www.codeforces.com/submissions/'
 		
 		destination_url = app_url + username
-		page = urllib2.urlopen(destination_url)
+		req = urllib2.Request(destination_url, headers={'User-Agent' : "Magic Browser"}) 
+		page = urllib2.urlopen(req)
 		soup = BeautifulSoup(page, 'html.parser')
 
 		if app == 'codechef' or app == 'cc':
