@@ -37,6 +37,7 @@ def find_problems(username, app):
 					if not isinstance(data, NavigableString) and data!=None:
 						for problem in data:
 							for problem_code in problem:
+								print("problem_code: ", problem_code)
 								if problem_code!="" and problem_code!=" " and problem_code!="\n":
 									user_problems.append(str(problem_code))
 									problem_urls.append(problem_url + str(problem_code))
