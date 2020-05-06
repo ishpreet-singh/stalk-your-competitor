@@ -3,42 +3,58 @@ from spoj import Spoj
 
 class Stalk():
 
-    choice = 0
-    
     def __init__(self):
-        self.set_platforms()
-        pass
+        self.initialise_platforms()
+        self.spoj = Spoj()
 
-    def set_platforms(self):
+
+    def initialise_platforms(self):
         self.platforms = {
             "Spoj": 1,
             "CodeChef": 2,
             "CodeForces": 3
         }
 
+    
+    def set_platform(self, platform):
+        self.platform = platform
+
+    
+    def get_platform(self):
+        return self.platform
+
+
     def get_platforms(self):
         return self.platforms
 
+
     def get_choice(self):
         return self.choice
-    
+
+
     def set_choice(self, choice):
         self.choice = choice
-    
+
+
     def get_all_choices(self):
         return list(self.platforms.values())
+
 
     def set_username(self, username):
         self.username = username
 
+
     def get_username(self):
-        self.username
+        return self.username
+
 
     def set_competitor(self, competitor):
         self.competitor = competitor
 
+
     def get_competitor(self):
-        self.competitor
+        return self.competitor
+
 
     def get_menu(self):
         menu = "\nChoose Platform\n\n"
@@ -49,14 +65,12 @@ class Stalk():
         self.menu = menu
         return self.menu
 
+
     def get_user_problems(self, user):
-        spoj = Spoj()
-        problems, urls = [], []
-        if self.choice == 1:
-            problems, urls = spoj.get_user_problems(user)
-        
+        problems, urls = self.platform.get_user_problems(user)
         user_problems = list(zip(problems, urls))
         return user_problems
+
 
     def get_user_choice(self):
         # return 1
@@ -71,19 +85,30 @@ class Stalk():
             choice = int(input())
         
         self.set_choice(choice)
-        return choice
+
+        if choice == 1:
+            self.set_platform(self.spoj)
+
 
     def get_user_input(self):
         # return "ishpreet", "karan_arora"
         print("\nEnter your username: ", end = "")
         username = input()
-        # If Valid Username
-        self.set_username(username)
-        print("\nEnter your competitor: ", end = "")
+        
+        while not self.platform.is_valid_user(username):
+            print("\nEnter a valid username: ", end = "")
+            username = input()
+        else:
+            self.set_username(username)
+
+        print("\nEnter your competitor username: ", end = "")
         competitor = input()
-        # If Valid Username
-        self.set_competitor(competitor)
-        return username, competitor
+
+        while not self.platform.is_valid_user(competitor):
+            print("\nEnter a valid competitor username: ", end = "")
+            competitor = input()
+        else:
+            self.set_competitor(competitor)
 
 
     def get_problems_solved_by_user(self, user_problems, competitor_problems):

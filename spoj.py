@@ -9,6 +9,14 @@ class Spoj():
     def __init__(self):
         self.url = "https://www.spoj.com/users/"
         self.problems_url = "https://www.spoj.com/problems/"
+
+    
+    def is_valid_user(self, username):
+        url = self.url + username
+        page = requests.get(url)
+        soup = BeautifulSoup(page.content, 'html.parser')
+        article = soup.find('table', attrs={'class': 'table-condensed'})
+        return article is not None
         
     
     def get_user_problems(self, username):
