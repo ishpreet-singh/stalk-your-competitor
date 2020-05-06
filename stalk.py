@@ -1,6 +1,7 @@
 
 from spoj import Spoj
 from codechef import Codechef
+from codeforces import Codeforces
 
 class Stalk():
 
@@ -8,6 +9,7 @@ class Stalk():
         self.initialise_platforms()
         self.spoj = Spoj()
         self.codechef = Codechef()
+        self.codeforces = Codeforces()
 
 
     def initialise_platforms(self):
@@ -75,7 +77,6 @@ class Stalk():
 
 
     def get_user_choice(self):
-        # return 1
         menu = str(self.get_menu())
         print(menu)
         print("Enter your choice: ", end = "")
@@ -92,10 +93,11 @@ class Stalk():
             self.set_platform(self.spoj)
         elif choice == 2:
             self.set_platform(self.codechef)
+        elif choice == 3:
+            self.set_platform(self.codeforces)
 
 
     def get_user_input(self):
-        # return "ishpreet", "karan_arora"
         print("\nEnter your username: ", end = "")
         username = input()
         
@@ -153,12 +155,17 @@ class Stalk():
         problems_solved_by_competitor = self.get_problems_solved_by_user(competitor_problems, user_problems)
         problems_solved_by_both = self.get_problems_solved_by_both(competitor_problems, user_problems)
 
-        print(f"\nProblems Solved by {self.competitor} and not by {self.username}:")
-        self.display_problems(problems_solved_by_competitor)  
-        print(f"\nProblems Solved by {self.username} and not by {self.competitor}:")
-        self.display_problems(problems_solved_by_user)
-        print(f"\nProblems Solved by both {self.username} and {self.competitor}:")
-        self.display_problems(problems_solved_by_both)
+        if len(problems_solved_by_competitor) > 0:
+            print(f"\nProblems Solved by {self.competitor} and not by {self.username}:")
+            self.display_problems(problems_solved_by_competitor)  
+
+        if len(problems_solved_by_user) > 0:
+            print(f"\nProblems Solved by {self.username} and not by {self.competitor}:")
+            self.display_problems(problems_solved_by_user)
+
+        if len(problems_solved_by_both) > 0:
+            print(f"\nProblems Solved by both {self.username} and {self.competitor}:")
+            self.display_problems(problems_solved_by_both)
 
 
 

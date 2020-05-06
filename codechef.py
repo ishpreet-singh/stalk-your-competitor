@@ -32,5 +32,5 @@ class Codechef():
     
 
 if __name__ == "__main__":
-    sp = Codechef()
-    sp.get_user_problems("ishpreet")
+    cc = Codechef()
+    cc.get_user_problems("ishpreet")
