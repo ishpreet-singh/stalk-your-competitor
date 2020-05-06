@@ -1,11 +1,13 @@
 
 from spoj import Spoj
+from codechef import Codechef
 
 class Stalk():
 
     def __init__(self):
         self.initialise_platforms()
         self.spoj = Spoj()
+        self.codechef = Codechef()
 
 
     def initialise_platforms(self):
@@ -88,6 +90,8 @@ class Stalk():
 
         if choice == 1:
             self.set_platform(self.spoj)
+        elif choice == 2:
+            self.set_platform(self.codechef)
 
 
     def get_user_input(self):
