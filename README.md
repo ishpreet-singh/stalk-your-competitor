@@ -8,8 +8,8 @@ Want to see your friends status on **Codechef** or want to complete all the prob
 
 1. git clone https://github.com/ishpreet-singh/stalk-your-competitor
 2. cd stalk-your-competitor
-3. Make sure you have python & [pip](https://pip.pypa.io/en/stable/installing/) installed in your system.
-4. Install dependencies: `pip install -r requirements.txt`.
+3. Make sure you have python3 & [pip3](https://pip.pypa.io/en/stable/installing/) installed in your system.
+4. Install dependencies: `pip3 install -r requirements.txt`.
 5. Start Stalking: `python3 stalk.py` 
 
 
@@ -17,5 +17,4 @@ Want to see your friends status on **Codechef** or want to complete all the prob
 
 The result may take few seconds to fetch.
 
-
-Want to see more online Judges or do you like the project and would like to contribute raise a pull request.
+Want to see more online Judges or do you like the project and would like to contribute feel free to raise a pull request.
